@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Catch-All Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // 2. Users Collection Rules
+    match /users/{userId} {
+      // Basic profile holds and displays to buddies
+      allow read: if true;
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.name is string;
+      allow update: if isSignedIn() && isOwner(userId) && request.resource.data.name is string;
+      allow delete: if false;
+
+      // 3. Subcollection tasks
+      match /tasks/{taskId} {
+        // Buddy reads tasks to check last 7 days completion status
+        allow read: if true;
+        allow create, update: if isSignedIn() && isOwner(userId) && isValidId(taskId);
+        allow delete: if isSignedIn() && isOwner(userId);
+      }
+    }
+  }
+}

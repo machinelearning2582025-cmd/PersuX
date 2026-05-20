@@ -1,0 +1,6 @@
+{
+  "name": "PersuX",
+  "description": "Improve communication skills through daily AI-guided micro-tasks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

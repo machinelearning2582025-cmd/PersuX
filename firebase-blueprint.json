@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing communication achievements and settings",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user's display name"
+        },
+        "whyStatement": {
+          "type": "string",
+          "description": "The AI-generated and confirmed personalizedWhy Statement"
+        },
+        "completedLessonsCount": {
+          "type": "integer",
+          "description": "Total number of lessons read by the user"
+        },
+        "streak": {
+          "type": "integer",
+          "description": "Current consecutive streak days count"
+        },
+        "lastActiveDate": {
+          "type": "string",
+          "description": "Date of last completed lesson or milestone"
+        },
+        "badges": {
+          "type": "array",
+          "description": "List of unlocked reward badges"
+        }
+      },
+      "required": ["name"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "AI-generated practice communication sub-task for daily focus",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique task identifier"
+        },
+        "text": {
+          "type": "string",
+          "description": "The task instructions"
+        },
+        "date": {
+          "type": "string",
+          "description": "The target date for the task"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the user successfully finished it"
+        },
+        "reflection": {
+          "type": "string",
+          "description": "The user's notes on how they succeeded or felt"
+        },
+        "aiReply": {
+          "type": "string",
+          "description": "AI Coach encouraging feedback or tips"
+        }
+      },
+      "required": ["id", "text", "date", "completed"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile document containing stats and accomplishments"
+    },
+    "users/{userId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "User's micro-tasks and learning journey logs"
+    }
+  }
+}
