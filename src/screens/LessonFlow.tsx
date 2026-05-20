@@ -91,15 +91,15 @@ export default function LessonFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col p-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col p-6">
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.div 
             key="loading"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="flex-1 flex flex-col items-center justify-center gap-4 text-slate-500"
+            className="flex-1 flex flex-col items-center justify-center gap-4 text-slate-500 dark:text-slate-400"
           >
-            <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+            <Loader2 className="w-8 h-8 animate-spin text-indigo-500 dark:text-indigo-400" />
             <p className="font-medium">Crafting your personalized lesson...</p>
           </motion.div>
         )}
@@ -110,15 +110,15 @@ export default function LessonFlow() {
             initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
             className="flex-1 flex flex-col items-center justify-center text-center space-y-8"
           >
-             <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-3xl shadow-sm">
+             <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center text-3xl shadow-sm">
                 🤔
              </div>
-             <h2 className="text-3xl font-bold text-slate-900 leading-tight">
+             <h2 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">
                {lessonData.hook}
              </h2>
              <button 
                onClick={handleNext}
-               className="mt-8 px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-all"
+               className="mt-8 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-all"
              >
                Let's Find Out <ArrowRight className="w-5 h-5" />
              </button>
@@ -132,17 +132,17 @@ export default function LessonFlow() {
             className="flex-1 flex flex-col pt-4 pb-20"
           >
              <div className="mb-8">
-               <span className="text-indigo-600 font-bold text-sm tracking-wider uppercase mb-2 block">
+               <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm tracking-wider uppercase mb-2 block">
                  Lesson {completedLessonsCount + 1}
                </span>
-               <h1 className="text-3xl font-bold text-slate-900">{lessonData.title}</h1>
+               <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{lessonData.title}</h1>
              </div>
 
-             <div className="prose prose-slate bg-white p-6 rounded-3xl shadow-sm border border-slate-100 whitespace-pre-wrap leading-relaxed text-slate-700 font-medium text-[17px]">
+             <div className="prose prose-slate dark:prose-invert bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 whitespace-pre-wrap leading-relaxed text-slate-700 dark:text-slate-300 font-medium text-[17px]">
                {lessonData.content}
                
-               <div className="my-8 bg-orange-50 border-l-4 border-orange-400 p-5 rounded-r-2xl">
-                 <p className="text-orange-900 font-medium italic m-0">
+               <div className="my-8 bg-orange-50 dark:bg-orange-500/10 border-l-4 border-orange-400 dark:border-orange-500 p-5 rounded-r-2xl">
+                 <p className="text-orange-900 dark:text-orange-200 font-medium italic m-0">
                   Reflect: {lessonData.reflectionPoint}
                  </p>
                </div>
@@ -163,19 +163,19 @@ export default function LessonFlow() {
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
             className="flex-1 flex flex-col items-center justify-center text-center px-4"
           >
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
-              <CheckCircle2 className="w-10 h-10 text-green-600" />
+            <div className="w-20 h-20 bg-green-100 dark:bg-green-500/10 rounded-full flex items-center justify-center mb-6">
+              <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-500" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">Lesson Complete!</h2>
-            <p className="text-slate-500 mb-8 font-medium">Your task for today has been added to the tracker.</p>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Lesson Complete!</h2>
+            <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">Your task for today has been added to the tracker.</p>
             
-            <div className="bg-white border-2 border-dashed border-indigo-200 p-6 rounded-3xl w-full mb-10 text-indigo-900 font-semibold shadow-sm">
+            <div className="bg-white dark:bg-slate-800 border-2 border-dashed border-indigo-200 dark:border-slate-600 p-6 rounded-3xl w-full mb-10 text-indigo-900 dark:text-indigo-100 font-semibold shadow-sm">
               {lessonData.task}
             </div>
 
             <button 
                onClick={handleDone}
-               className="w-full py-5 bg-slate-900 text-white rounded-2xl font-bold shadow-md active:scale-95 transition-all"
+               className="w-full py-5 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl font-bold shadow-md active:scale-95 transition-all"
              >
                See My Tasks
              </button>

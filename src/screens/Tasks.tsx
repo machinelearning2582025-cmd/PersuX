@@ -47,13 +47,13 @@ export default function Tasks() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Today's Tasks</h1>
+      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Today's Tasks</h1>
 
       {pendingTasks.length === 0 ? (
-        <div className="bg-slate-100 p-8 rounded-3xl text-center border border-slate-200 border-dashed">
+        <div className="bg-slate-100 dark:bg-slate-800/50 p-8 rounded-3xl text-center border border-slate-200 dark:border-slate-700 border-dashed">
            <div className="text-4xl mb-4">🏆</div>
-           <h3 className="font-bold text-slate-700">All caught up!</h3>
-           <p className="text-slate-500 text-sm mt-2 font-medium">You completed your real-world tasks for today. See you tomorrow!</p>
+           <h3 className="font-bold text-slate-700 dark:text-slate-300">All caught up!</h3>
+           <p className="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">You completed your real-world tasks for today. See you tomorrow!</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -61,22 +61,22 @@ export default function Tasks() {
             <motion.div 
               key={t.id} 
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white border-2 border-indigo-50 p-5 rounded-3xl shadow-sm relative overflow-hidden"
+              className="bg-white dark:bg-slate-800 border-2 border-indigo-50 dark:border-slate-700 p-5 rounded-3xl shadow-sm relative overflow-hidden"
             >
               {activeTaskId === t.id ? (
                 <div className="space-y-4">
-                   <h4 className="font-semibold text-slate-800 text-sm">Reflection</h4>
-                   <p className="text-xs text-slate-500">Kya hua? Kaisa laga? (1-2 lines)</p>
+                   <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Reflection</h4>
+                   <p className="text-xs text-slate-500 dark:text-slate-400">Kya hua? Kaisa laga? (1-2 lines)</p>
                    <textarea
                      value={reflection}
                      onChange={(e) => setReflection(e.target.value)}
-                     className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none h-24"
+                     className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none h-24"
                      placeholder="Pehle thoda awkward laga, but wo smile back kiya..."
                    />
                    <div className="flex gap-2">
                      <button 
                        onClick={() => setActiveTaskId(null)}
-                       className="flex-1 py-3 font-semibold text-slate-500 bg-slate-100 rounded-xl"
+                       className="flex-1 py-3 font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 rounded-xl"
                      >Cancel</button>
                      <button 
                         onClick={submitReflection}
@@ -91,9 +91,9 @@ export default function Tasks() {
                 <div className="flex items-start gap-4">
                   <button 
                     onClick={() => openReflection(t.id)}
-                    className="mt-1 w-7 h-7 rounded-full border-2 border-slate-300 flex-shrink-0 hover:border-indigo-500 transition-colors"
+                    className="mt-1 w-7 h-7 rounded-full border-2 border-slate-300 dark:border-slate-600 flex-shrink-0 hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors"
                   ></button>
-                  <p className="font-medium text-slate-800 leading-snug pt-1 flex-1">{t.text}</p>
+                  <p className="font-medium text-slate-800 dark:text-slate-200 leading-snug pt-1 flex-1">{t.text}</p>
                 </div>
               )}
             </motion.div>
@@ -103,28 +103,28 @@ export default function Tasks() {
 
       {historicTasks.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-xl font-bold text-slate-900 mb-6">Completed</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Completed</h2>
           <div className="space-y-4">
             {historicTasks.map((t) => (
-              <div key={t.id} className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm opacity-80">
+              <div key={t.id} className="bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm opacity-80">
                 <div className="flex gap-3 items-center mb-3">
                   <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  <p className="text-sm font-medium text-slate-500 line-through truncate">{t.text}</p>
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400 line-through truncate">{t.text}</p>
                 </div>
                 {t.reflection && (
-                  <div className="bg-slate-50 p-4 rounded-2xl mb-3">
-                    <p className="text-xs text-slate-500 mb-1 font-bold">Your Reflection:</p>
-                    <p className="text-sm text-slate-700 italic">"{t.reflection}"</p>
+                  <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl mb-3">
+                    <p className="text-xs text-slate-500 dark:text-slate-500 mb-1 font-bold">Your Reflection:</p>
+                    <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{t.reflection}"</p>
                   </div>
                 )}
                 {t.aiReply && (
-                  <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl flex gap-3 items-start">
-                    <div className="bg-indigo-100 p-1.5 rounded-xl shrink-0">
-                      <MessageSquare className="w-4 h-4 text-indigo-600" />
+                  <div className="bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 p-4 rounded-2xl flex gap-3 items-start">
+                    <div className="bg-indigo-100 dark:bg-indigo-500/20 p-1.5 rounded-xl shrink-0">
+                      <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     </div>
                     <div>
-                      <p className="text-xs text-indigo-400 font-bold mb-1">AI Coach</p>
-                      <p className="text-sm text-indigo-900 font-medium">{t.aiReply}</p>
+                      <p className="text-xs text-indigo-400 dark:text-indigo-500 font-bold mb-1">AI Coach</p>
+                      <p className="text-sm text-indigo-900 dark:text-indigo-200 font-medium">{t.aiReply}</p>
                     </div>
                   </div>
                 )}

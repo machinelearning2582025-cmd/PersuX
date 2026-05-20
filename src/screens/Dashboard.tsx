@@ -42,12 +42,12 @@ export default function Dashboard() {
       {/* Header */}
       <header className="flex justify-between items-center pt-2">
         <div>
-          <p className="text-slate-500 text-sm font-medium">Hello, {user?.name}</p>
-          <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Hello, {user?.name}</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
         </div>
-        <div className="flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-full border border-orange-100">
+        <div className="flex items-center gap-2 bg-orange-50 dark:bg-orange-500/10 px-4 py-2 rounded-full border border-orange-100 dark:border-orange-500/20">
           <Flame className="w-5 h-5 text-orange-500" />
-          <span className="font-bold text-orange-600">{streak} Day Streak</span>
+          <span className="font-bold text-orange-600 dark:text-orange-400">{streak} Day Streak</span>
         </div>
       </header>
 
@@ -58,17 +58,17 @@ export default function Dashboard() {
              initial={{ opacity: 0, height: 0 }}
              animate={{ opacity: 1, height: 'auto' }}
              exit={{ opacity: 0, height: 0 }}
-             className="bg-rose-50 border border-rose-200 p-5 rounded-3xl"
+             className="bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 p-5 rounded-3xl"
            >
               <div className="flex items-start gap-3">
                  <ShieldAlert className="w-6 h-6 text-rose-500 shrink-0 mt-0.5" />
                  <div>
-                    <h3 className="font-bold text-rose-900">Streak at risk!</h3>
-                    <p className="text-rose-700 text-sm mt-1 mb-4">
+                    <h3 className="font-bold text-rose-900 dark:text-rose-400">Streak at risk!</h3>
+                    <p className="text-rose-700 dark:text-rose-300 text-sm mt-1 mb-4">
                        You missed yesterday. You can restore your {pendingStreakRestore}-day streak by explaining what happened.
                     </p>
                     {!showRestoreInput ? (
-                       <button onClick={() => setShowRestoreInput(true)} className="px-4 py-2 bg-rose-600 text-white text-sm font-bold rounded-xl active:scale-95 transition-transform shadow-sm">
+                       <button onClick={() => setShowRestoreInput(true)} className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold rounded-xl active:scale-95 transition-transform shadow-sm">
                          Use Streak Freeze
                        </button>
                     ) : (
@@ -77,10 +77,10 @@ export default function Dashboard() {
                              value={restoreReason}
                              onChange={e => setRestoreReason(e.target.value)}
                              placeholder="Why did you miss yesterday? How will you bounce back?"
-                             className="w-full bg-white border border-rose-200 rounded-xl p-3 text-sm focus:outline-none focus:border-rose-400"
+                             className="w-full bg-white dark:bg-slate-900 border border-rose-200 dark:border-rose-800 text-slate-900 dark:text-slate-100 rounded-xl p-3 text-sm focus:outline-none focus:border-rose-400"
                              rows={2}
                           />
-                          <button onClick={handleRestore} className="w-full py-2 bg-rose-600 text-white text-sm font-bold rounded-xl active:scale-95 transition-transform shadow-sm">
+                          <button onClick={handleRestore} className="w-full py-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold rounded-xl active:scale-95 transition-transform shadow-sm">
                             Submit & Restore
                           </button>
                        </div>
@@ -132,25 +132,25 @@ export default function Dashboard() {
         <motion.div 
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
           onClick={() => navigate('/tasks')}
-          className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between cursor-pointer active:scale-95 transition-transform"
+          className="bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer active:scale-95 transition-transform"
         >
-          <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-4">
+          <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-500/10 text-rose-500 flex items-center justify-center mb-4">
             <span className="font-bold text-lg">{activeTasks}</span>
           </div>
-          <h4 className="font-bold text-slate-900">Pending Tasks</h4>
-          <p className="text-xs text-slate-500 mt-1">Ready to complete</p>
+          <h4 className="font-bold text-slate-900 dark:text-white">Pending Tasks</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Ready to complete</p>
         </motion.div>
         
         <motion.div 
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
           onClick={() => navigate(`/buddy/${user?.id}`)}
-          className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between cursor-pointer active:scale-95 transition-transform"
+          className="bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer active:scale-95 transition-transform"
         >
-          <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4">
+          <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4">
             <Users className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-slate-900">Buddy Link</h4>
-          <p className="text-xs text-slate-500 mt-1">Keep accountable</p>
+          <h4 className="font-bold text-slate-900 dark:text-white">Buddy Link</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Keep accountable</p>
         </motion.div>
       </div>
 
@@ -158,14 +158,14 @@ export default function Dashboard() {
       {badges && badges.length > 0 && (
          <motion.div 
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-            className="flex gap-4 p-4 bg-slate-50 border border-slate-200 rounded-3xl overflow-x-auto"
+            className="flex gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-3xl overflow-x-auto"
          >
             {badges.map(b => (
                <div key={b} className="flex flex-col items-center flex-shrink-0 w-24 gap-2">
-                  <div className="w-14 h-14 rounded-full border-4 border-white shadow-sm bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center text-indigo-500">
+                  <div className="w-14 h-14 rounded-full border-4 border-white dark:border-slate-800 shadow-sm bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/50 dark:to-slate-800 flex items-center justify-center text-indigo-500 dark:text-indigo-400">
                      <Award className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-bold text-slate-600 text-center uppercase tracking-wider">{b}</span>
+                  <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 text-center uppercase tracking-wider">{b}</span>
                </div>
             ))}
          </motion.div>
@@ -174,13 +174,13 @@ export default function Dashboard() {
       {/* Mini Progress */}
       <motion.div 
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-        className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm"
+        className="bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm"
       >
         <div className="flex justify-between items-end mb-3">
-          <h4 className="font-bold text-slate-900">Skill Progress</h4>
-          <span className="text-sm font-bold text-indigo-600">{skillProgress}%</span>
+          <h4 className="font-bold text-slate-900 dark:text-white">Skill Progress</h4>
+          <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">{skillProgress}%</span>
         </div>
-        <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+        <div className="w-full bg-slate-100 dark:bg-slate-700 h-3 rounded-full overflow-hidden">
           <motion.div 
             initial={{ width: 0 }}
             animate={{ width: `${skillProgress}%` }}

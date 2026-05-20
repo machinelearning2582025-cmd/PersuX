@@ -13,6 +13,7 @@ interface AppState {
   tasks: Task[];
   badges: string[];
   pendingStreakRestore: number | null; // Stores the lost streak amount
+  theme: 'light' | 'dark' | 'system';
   login: (name: string) => void;
   loginSynced: (firebaseUser: User) => Promise<void>;
   logout: () => void;
@@ -25,6 +26,7 @@ interface AppState {
   checkStreak: () => void;
   setStreak: (val: number) => void;
   setLastActiveDate: (dateStr: string | null) => void;
+  setTheme: (theme: 'light' | 'dark' | 'system') => void;
 }
 
 const getTodayDateString = () => new Date().toISOString().split('T')[0];
@@ -65,6 +67,7 @@ export const useStore = create<AppState>()(
       tasks: [],
       badges: [],
       pendingStreakRestore: null,
+      theme: 'system',
 
       login: (name) => {
         const id = Math.random().toString(36).substring(2, 9);
@@ -97,7 +100,8 @@ export const useStore = create<AppState>()(
               lastActiveDate: data.lastActiveDate || null,
               badges: data.badges || [],
               tasks: loadedTasks,
-              pendingStreakRestore: data.pendingStreakRestore || null
+              pendingStreakRestore: data.pendingStreakRestore || null,
+              theme: data.theme || 'system'
             });
           } else {
             // First time login - Sync current local state to Firebase so progress is preserved
@@ -109,7 +113,8 @@ export const useStore = create<AppState>()(
               completedLessonsCount: state.completedLessonsCount,
               streak: state.streak,
               lastActiveDate: state.lastActiveDate,
-              badges: state.badges || []
+              badges: state.badges || [],
+              theme: state.theme || 'system'
             }, { merge: true });
 
             for (const task of state.tasks) {
@@ -135,6 +140,7 @@ export const useStore = create<AppState>()(
            lastActiveDate: null,
            badges: [],
            pendingStreakRestore: null,
+           theme: 'system',
         });
       },
 
@@ -335,6 +341,14 @@ export const useStore = create<AppState>()(
             streak: get().streak,
             pendingStreakRestore: get().pendingStreakRestore
           });
+        }
+      },
+
+      setTheme: (theme) => {
+        set({ theme });
+        const u = get().user;
+        if (u && u.synced) {
+          updateFirestoreUserField(u.id, { theme });
         }
       }
     }),

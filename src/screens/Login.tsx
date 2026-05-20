@@ -49,17 +49,17 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-50 text-center max-w-md mx-auto shadow-xl relative border-x border-slate-200">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-50 dark:bg-slate-900 text-center w-full max-w-md mx-auto shadow-xl relative border-x border-slate-200 dark:border-slate-800">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm space-y-8 p-8 bg-white rounded-3xl shadow-sm border border-slate-100"
+        className="w-full max-w-sm space-y-8 p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700"
       >
-        <div className="mx-auto w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200 mb-6 transform rotate-3">
+        <div className="mx-auto w-16 h-16 bg-indigo-600 dark:bg-indigo-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none mb-6 transform rotate-3">
           <span className="text-3xl">🚀</span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">PersuX</h1>
-        <p className="text-slate-500 font-medium">Practice speaking, every day.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">PersuX</h1>
+        <p className="text-slate-500 dark:text-slate-400 font-medium">Practice speaking, every day.</p>
         
         <form onSubmit={handleLogin} className="mt-8 space-y-4">
           <div>
@@ -68,13 +68,13 @@ export default function Login() {
               placeholder="What's your name?"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all outline-none"
+              className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-800 transition-all outline-none"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-slate-900 text-white rounded-2xl font-semibold hover:bg-slate-800 transition-colors shadow-md active:scale-95 transition-transform"
+            className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-slate-900 dark:bg-indigo-600 text-white rounded-2xl font-semibold hover:bg-slate-800 dark:hover:bg-indigo-700 transition-colors shadow-md active:scale-95 transition-transform"
           >
             <span>Start Learning Free</span>
             <LogIn className="w-5 h-5" />
@@ -82,19 +82,19 @@ export default function Login() {
         </form>
 
         <div className="relative my-6 flex py-1 items-center">
-          <div className="flex-grow border-t border-slate-100"></div>
+          <div className="flex-grow border-t border-slate-100 dark:border-slate-700"></div>
           <span className="flex-shrink mx-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">or sign in with</span>
-          <div className="flex-grow border-t border-slate-100"></div>
+          <div className="flex-grow border-t border-slate-100 dark:border-slate-700"></div>
         </div>
 
         <button
           type="button"
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-colors shadow-sm active:scale-95 transform transition-transform cursor-pointer disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm active:scale-95 transform transition-transform cursor-pointer disabled:opacity-50"
         >
           {loading ? (
-            <Loader2 className="w-5 h-5 animate-spin text-slate-500" />
+            <Loader2 className="w-5 h-5 animate-spin text-slate-500 dark:text-slate-400" />
           ) : (
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
               <path fill="#EA4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.65 1.58 15.01 1 12 1 7.37 1 3.42 3.66 1.48 7.56l3.89 3.02C6.31 7.55 8.94 5.04 12 5.04z" />
@@ -103,12 +103,12 @@ export default function Login() {
               <path fill="#34A853" d="M12 18.96c-3.06 0-5.69-2.51-6.63-5.54l-3.89 3.02c1.94 3.9 5.89 6.56 10.52 6.56 3.12 0 5.92-1.01 7.96-2.82l-3.6-2.79c-1.12.77-2.54 1.25-4.36 1.25z" />
             </svg>
           )}
-          <span className="text-slate-700 text-sm font-bold">Google Sign-In</span>
+          <span className="text-slate-700 dark:text-slate-200 text-sm font-bold">Google Sign-In</span>
         </button>
 
         {errorMsg && <p className="text-xs text-rose-500 font-bold mt-2">{errorMsg}</p>}
         
-        <p className="text-xs text-slate-400 mt-6 pt-4 border-t border-slate-100">
+        <p className="text-xs text-slate-400 mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
           Sign up instantly. 100% Free MVP.
         </p>
       </motion.div>
