@@ -11,6 +11,7 @@ export default function LessonFlow() {
   const completedLessonsCount = useStore((state) => state.completedLessonsCount);
   const incrementLessonCount = useStore((state) => state.incrementLessonCount);
   const addTask = useStore((state) => state.addTask);
+  const tasks = useStore((state) => state.tasks);
 
   const [step, setStep] = useState(0); // 0=Loading, 1=Hook, 2=Content, 3=Task Added
   const [lessonData, setLessonData] = useState<Lesson | null>(null);
@@ -27,7 +28,11 @@ export default function LessonFlow() {
         const response = await fetch('/api/lesson', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ whyStatement, completedLessonsCount })
+          body: JSON.stringify({ 
+            whyStatement, 
+            completedLessonsCount,
+            coveredTopics: tasks.map(t => t.text)
+          })
         });
         const data = await response.json();
         setLessonData({ ...data, id: Date.now().toString() });

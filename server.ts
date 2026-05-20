@@ -48,11 +48,13 @@ Example format: "Main apne confidence aur communication ko strong banana chahta 
 
 app.post("/api/lesson", async (req, res) => {
   try {
-    const { whyStatement, completedLessonsCount } = req.body;
+    const { whyStatement, completedLessonsCount, coveredTopics } = req.body;
     const step = completedLessonsCount + 1;
     
-    const prompt = `Act as an expert communication coach. The user's 'Why' (goal) is: "${whyStatement}".
-Generate Lesson #${step} tailored to help them achieve this goal. 
+    const prompt = `Act as an expert, deeply insightful personal communication coach. The user's 'Why' (goal) is: "${whyStatement}".
+Generate Lesson #${step} tailored to help them achieve this goal.
+We have already covered these topics: ${coveredTopics ? coveredTopics.join(", ") : "None"}.
+CRITICAL: Do NOT teach these topics again. Provide fresh, deep, high-quality, actionable insights, NOT generic advice.
 Output your response matching the requested JSON structure exactly. Ensure no markdown formatting or extra text. Use Hinglish naturally.`;
 
     const response = await ai.models.generateContent({
@@ -73,7 +75,7 @@ Output your response matching the requested JSON structure exactly. Ensure no ma
             },
             content: { 
               type: Type.STRING, 
-              description: "A 2-3 paragraph lesson content in Hinglish. Include an actionable psychological principle or micro-communication rule, and use an Indian context example so it feels relatable." 
+              description: "A 2-3 paragraph lesson content in Hinglish. Include an actionable psychological principle or micro-communication rule, and use an Indian context example so it feels relatable. Ensure the explanation is deep and insightful." 
             },
             reflectionPoint: { 
               type: Type.STRING, 
@@ -81,7 +83,7 @@ Output your response matching the requested JSON structure exactly. Ensure no ma
             },
             task: { 
               type: Type.STRING, 
-              description: "A single, highly specific, actionable micro-task they must complete TODAY in real life (e.g. greeting a junior or a stranger). Keep it extremely simple and easy, requiring less than 1 minute to act on." 
+              description: "A single, highly specific, actionable micro-task they must complete TODAY in real life. Keep it extremely simple and easy, requiring less than 1 minute to act on." 
             }
           },
           required: ["hook", "title", "content", "reflectionPoint", "task"]
