@@ -9,12 +9,12 @@ export default function Layout() {
   const pendingTasks = tasks.filter(t => !t.completed && t.date === new Date().toISOString().split('T')[0]).length;
 
   return (
-    <div className="flex flex-col h-screen bg-slate-50 text-slate-900 font-sans max-w-md mx-auto shadow-xl overflow-hidden relative border-x border-slate-200">
-      <main className="flex-1 overflow-y-auto pb-20 scroll-smooth">
+    <div className="flex flex-col h-dvh bg-slate-50 text-slate-900 font-sans w-full max-w-md mx-auto shadow-xl overflow-hidden relative border-x border-slate-200">
+      <main className="flex-1 overflow-y-auto w-full h-full pb-24 scroll-smooth">
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 w-full max-w-md left-1/2 -translate-x-1/2 bg-white border-t border-slate-200 px-6 py-4 flex justify-between items-center z-50">
+      <nav className="fixed bottom-0 w-full max-w-md left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-t border-slate-200 px-6 py-4 flex justify-between items-center z-50">
         <Link to="/" className={cn("flex flex-col items-center gap-1", location.pathname === '/' ? "text-indigo-600" : "text-slate-400 hover:text-slate-600")}>
           <Home className="w-6 h-6" />
           <span className="text-xs font-medium">Home</span>
