@@ -18,7 +18,7 @@ export default function Profile() {
   const setTheme = useStore((state) => state.setTheme);
 
   const completedTasksCount = tasks.filter(t => t.completed).length;
-  const totalXP = completedLessonsCount * 50 + completedTasksCount * 50;
+  const totalXP = completedLessonsCount * 10 + completedTasksCount * 10;
   const currentLevel = Math.floor(totalXP / 100) + 1;
 
   const levelMedals = [];

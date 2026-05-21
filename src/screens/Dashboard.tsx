@@ -27,7 +27,7 @@ export default function Dashboard() {
   const activeTasks = tasks.filter((t) => !t.completed && t.date === todayStr).length;
   
   const completedTasksCount = tasks.filter(t => t.completed).length;
-  const totalXP = completedLessons * 50 + completedTasksCount * 50;
+  const totalXP = completedLessons * 10 + completedTasksCount * 10;
   const currentLevel = Math.floor(totalXP / 100) + 1;
   const skillProgress = totalXP % 100;
 
