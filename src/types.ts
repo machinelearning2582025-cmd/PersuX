@@ -4,6 +4,7 @@ export interface User {
   email?: string;
   photoURL?: string;
   synced?: boolean;
+  language?: 'English' | 'Hindi' | 'Hinglish';
 }
 
 export interface Task {

@@ -15,23 +15,31 @@ service cloud.firestore {
       return request.auth.uid == userId;
     }
 
-    function isValidId(id) {
-      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    function isValidUser(data) {
+      return data.name is string && data.name.size() <= 64 &&
+             (data.whyStatement is string ? data.whyStatement.size() <= 500 : true) &&
+             (data.completedLessonsCount is int ? data.completedLessonsCount >= 0 : true) &&
+             (data.streak is int ? data.streak >= 0 : true) &&
+             (data.lastActiveDate is string ? data.lastActiveDate.size() <= 10 : true) &&
+             (data.badges is list ? data.badges.size() <= 100 : true) &&
+             (data.theme is string ? data.theme in ['light', 'dark', 'system'] : true) &&
+             (data.language is string ? data.language in ['English', 'Hindi', 'Hinglish'] : true);
     }
 
     // 2. Users Collection Rules
     match /users/{userId} {
-      // Basic profile holds and displays to buddies
-      allow read: if true;
-      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.name is string;
-      allow update: if isSignedIn() && isOwner(userId) && request.resource.data.name is string;
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isOwner(userId) && isValidUser(incoming()) && incoming().name is string;
+      allow update: if isSignedIn() && isOwner(userId) && isValidUser(incoming());
       allow delete: if false;
 
       // 3. Subcollection tasks
       match /tasks/{taskId} {
-        // Buddy reads tasks to check last 7 days completion status
-        allow read: if true;
-        allow create, update: if isSignedIn() && isOwner(userId) && isValidId(taskId);
+        allow read: if isSignedIn() && isOwner(userId);
+        allow create, update: if isSignedIn() && isOwner(userId);
         allow delete: if isSignedIn() && isOwner(userId);
       }
     }

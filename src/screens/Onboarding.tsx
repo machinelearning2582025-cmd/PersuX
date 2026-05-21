@@ -9,9 +9,11 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
   const setWhyStatement = useStore((state) => state.setWhyStatement);
+  const setLanguage = useStore((state) => state.setLanguage);
   
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [extraInfo, setExtraInfo] = useState('');
+  const [language, setLanguageState] = useState<'English' | 'Hindi' | 'Hinglish'>('English');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedStatement, setGeneratedStatement] = useState('');
 
@@ -29,7 +31,7 @@ export default function Onboarding() {
       const response = await fetch('/api/why', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ goals: selectedGoals, extraInfo })
+        body: JSON.stringify({ goals: selectedGoals, extraInfo, language })
       });
       const data = await response.json();
       setGeneratedStatement(data.statement);
@@ -42,6 +44,7 @@ export default function Onboarding() {
 
   const confirmWhy = () => {
     setWhyStatement(generatedStatement);
+    setLanguage(language);
     navigate('/');
   };
 
@@ -124,6 +127,27 @@ export default function Onboarding() {
             placeholder="e.g., Mujhe boss ke saamne nervous feel hota hai..."
             className="w-full px-5 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none h-24"
           />
+        </div>
+
+        <div className="mb-10">
+          <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">
+            AI Content Language:
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {(['English', 'Hindi', 'Hinglish'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguageState(lang)}
+                className={`py-2 px-3 rounded-xl border-2 transition-all ${
+                  language === lang
+                    ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-bold'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                }`}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
         </div>
 
         <button

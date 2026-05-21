@@ -7,6 +7,7 @@ import { Task } from '../types';
 export default function Tasks() {
   const tasks = useStore((state) => state.tasks);
   const completeTaskStore = useStore((state) => state.completeTask);
+  const language = useStore((state) => state.language);
 
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [reflection, setReflection] = useState('');
@@ -30,7 +31,7 @@ export default function Tasks() {
       const res = await fetch('/api/coach', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task: taskObj?.text, reflection })
+        body: JSON.stringify({ task: taskObj?.text, reflection, language })
       });
       const data = await res.json();
       

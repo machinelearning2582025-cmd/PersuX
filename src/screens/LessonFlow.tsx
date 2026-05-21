@@ -9,6 +9,7 @@ export default function LessonFlow() {
   const navigate = useNavigate();
   const whyStatement = useStore((state) => state.whyStatement);
   const completedLessonsCount = useStore((state) => state.completedLessonsCount);
+  const language = useStore((state) => state.language);
   const incrementLessonCount = useStore((state) => state.incrementLessonCount);
   const addTask = useStore((state) => state.addTask);
   const tasks = useStore((state) => state.tasks);
@@ -31,7 +32,8 @@ export default function LessonFlow() {
           body: JSON.stringify({ 
             whyStatement, 
             completedLessonsCount,
-            coveredTopics: tasks.map(t => t.text)
+            coveredTopics: tasks.map(t => t.text),
+            language
           })
         });
         const data = await response.json();

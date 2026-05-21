@@ -25,6 +25,14 @@
           "type": "string",
           "description": "Date of last completed lesson or milestone"
         },
+        "theme": {
+          "type": "string",
+          "description": "User's preferred theme (light, dark, system)"
+        },
+        "language": {
+          "type": "string",
+          "description": "User's preferred language (English, Hindi, Hinglish)"
+        },
         "badges": {
           "type": "array",
           "description": "List of unlocked reward badges"

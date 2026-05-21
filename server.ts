@@ -27,12 +27,11 @@ app.use(express.json());
 // API Routes
 app.post("/api/why", async (req, res) => {
   try {
-    const { goals, extraInfo } = req.body;
+    const { goals, extraInfo, language } = req.body;
     const prompt = `Act as an expert communication coach. The user wants to learn communication skills for: ${goals.join(", ")}. 
 Additional context: ${extraInfo || "None"}.
-Generate a powerful, personalized 1-2 sentence "Why Statement" in clear Hinglish (Hindi written in English alphabet mixed with English). 
-Make it sound like a personal mission statement. Start directly with the statement without any quotes or explanations.
-Example format: "Main apne confidence aur communication ko strong banana chahta hoon taaki office mein smoothly present kar sakun..."`;
+Generate a powerful, personalized 1-2 sentence "Why Statement" in ${language}. 
+Make it sound like a personal mission statement. Start directly with the statement without any quotes or explanations.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
@@ -48,14 +47,14 @@ Example format: "Main apne confidence aur communication ko strong banana chahta 
 
 app.post("/api/lesson", async (req, res) => {
   try {
-    const { whyStatement, completedLessonsCount, coveredTopics } = req.body;
+    const { whyStatement, completedLessonsCount, coveredTopics, language } = req.body;
     const step = completedLessonsCount + 1;
     
     const prompt = `Act as an expert, deeply insightful personal communication coach. The user's 'Why' (goal) is: "${whyStatement}".
 Generate Lesson #${step} tailored to help them achieve this goal.
 We have already covered these topics: ${coveredTopics ? coveredTopics.join(", ") : "None"}.
 CRITICAL: Do NOT teach these topics again. Provide fresh, deep, high-quality, actionable insights, NOT generic advice.
-Output your response matching the requested JSON structure exactly. Ensure no markdown formatting or extra text. Use Hinglish naturally.`;
+Output your response matching the requested JSON structure exactly. Ensure no markdown formatting or extra text. Use ${language} naturally.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
@@ -101,10 +100,10 @@ Output your response matching the requested JSON structure exactly. Ensure no ma
 
 app.post("/api/coach", async (req, res) => {
   try {
-    const { task, reflection } = req.body;
+    const { task, reflection, language } = req.body;
     const prompt = `The user just completed a communication practice task: "${task}".
 Their reflection on how it went is: "${reflection}".
-Act as an encouraging AI communication coach. Reply with a short, 1-2 sentence encouraging feedback or a tiny tip in Hinglish. Keep it highly motivational. Add an emoji.`;
+Act as an encouraging AI communication coach. Reply with a short, 1-2 sentence encouraging feedback or a tiny tip in ${language}. Keep it highly motivational. Add an emoji.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
