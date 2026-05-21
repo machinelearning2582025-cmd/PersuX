@@ -10,11 +10,22 @@ export default function Profile() {
   const user = useStore((state) => state.user);
   const streak = useStore((state) => state.streak);
   const completedLessonsCount = useStore((state) => state.completedLessonsCount);
+  const tasks = useStore((state) => state.tasks);
   const badges = useStore((state) => state.badges) || [];
   const logout = useStore((state) => state.logout);
   const loginSynced = useStore((state) => state.loginSynced);
   const theme = useStore((state) => state.theme);
   const setTheme = useStore((state) => state.setTheme);
+
+  const completedTasksCount = tasks.filter(t => t.completed).length;
+  const totalXP = completedLessonsCount * 50 + completedTasksCount * 50;
+  const currentLevel = Math.floor(totalXP / 100) + 1;
+
+  const levelMedals = [];
+  for (let i = 1; i < currentLevel; i++) {
+    levelMedals.push(`Level ${i} Medal`);
+  }
+  const allBadges = [...badges, ...levelMedals];
 
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -207,23 +218,23 @@ export default function Profile() {
           <h4 className="font-bold text-slate-900 dark:text-white text-sm">Unlocked Rewards</h4>
         </div>
         
-        {badges.length === 0 ? (
+        {allBadges.length === 0 ? (
           <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-4 font-medium leading-relaxed">
             Abhi koi badge unlocked nahi hai. Lessons lene pe rewards milenge! 🚀
           </p>
         ) : (
           <div className="space-y-3">
-            {badges.map((badgeName) => (
+            {allBadges.map((badgeName) => (
               <div 
                 key={badgeName}
                 className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100/50 dark:border-slate-700"
               >
                 <div className="w-8 h-8 bg-amber-50 dark:bg-amber-500/10 text-amber-500 flex items-center justify-center text-sm rounded-xl">
-                  🏆
+                  {badgeName.includes('Level') ? '🏅' : '🏆'}
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{badgeName}</p>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">Unlocked through communication streak</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{badgeName.includes('Level') ? 'Unlocked by gaining skill levels' : 'Unlocked through communication streak'}</p>
                 </div>
               </div>
             ))}

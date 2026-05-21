@@ -26,7 +26,10 @@ export default function Dashboard() {
   const todayStr = new Date().toISOString().split('T')[0];
   const activeTasks = tasks.filter((t) => !t.completed && t.date === todayStr).length;
   
-  const skillProgress = Math.min(Math.round(((completedLessons * 10 + tasks.filter(t => t.completed).length * 5) / 100) * 100), 100);
+  const completedTasksCount = tasks.filter(t => t.completed).length;
+  const totalXP = completedLessons * 50 + completedTasksCount * 50;
+  const currentLevel = Math.floor(totalXP / 100) + 1;
+  const skillProgress = totalXP % 100;
 
   const handleRestore = () => {
      if (restoreReason.trim().length > 5) {
@@ -155,21 +158,30 @@ export default function Dashboard() {
       </div>
 
       {/* Badges Section */}
-      {badges && badges.length > 0 && (
-         <motion.div 
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-            className="flex gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-3xl overflow-x-auto"
-         >
-            {badges.map(b => (
-               <div key={b} className="flex flex-col items-center flex-shrink-0 w-24 gap-2">
-                  <div className="w-14 h-14 rounded-full border-4 border-white dark:border-slate-800 shadow-sm bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/50 dark:to-slate-800 flex items-center justify-center text-indigo-500 dark:text-indigo-400">
-                     <Award className="w-6 h-6" />
-                  </div>
-                  <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 text-center uppercase tracking-wider">{b}</span>
-               </div>
-            ))}
-         </motion.div>
-      )}
+      {(() => {
+        const levelMedals = [];
+        for (let i = 1; i < currentLevel; i++) {
+          levelMedals.push(`Level ${i} Medal`);
+        }
+        const allBadges = [...(badges || []), ...levelMedals];
+        
+        if (allBadges.length === 0) return null;
+        return (
+          <motion.div 
+             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
+             className="flex gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-3xl overflow-x-auto"
+          >
+             {allBadges.map(b => (
+                <div key={b} className="flex flex-col items-center flex-shrink-0 w-24 gap-2">
+                   <div className="w-14 h-14 rounded-full border-4 border-white dark:border-slate-800 shadow-sm bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/50 dark:to-slate-800 flex items-center justify-center text-indigo-500 dark:text-indigo-400">
+                      {b.includes('Level') ? '🏅' : <Award className="w-6 h-6" />}
+                   </div>
+                   <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 text-center uppercase tracking-wider">{b}</span>
+                </div>
+             ))}
+          </motion.div>
+        );
+      })()}
 
       {/* Mini Progress */}
       <motion.div 
@@ -177,8 +189,13 @@ export default function Dashboard() {
         className="bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm"
       >
         <div className="flex justify-between items-end mb-3">
-          <h4 className="font-bold text-slate-900 dark:text-white">Skill Progress</h4>
-          <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">{skillProgress}%</span>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-sm">
+              L{currentLevel}
+            </div>
+            <h4 className="font-bold text-slate-900 dark:text-white">Current Level</h4>
+          </div>
+          <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">{skillProgress}% to Level {currentLevel + 1}</span>
         </div>
         <div className="w-full bg-slate-100 dark:bg-slate-700 h-3 rounded-full overflow-hidden">
           <motion.div 
