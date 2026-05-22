@@ -91,7 +91,7 @@ export default function Onboarding() {
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
           Hi, {user?.name}! 👋
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 font-medium mb-8">Aap kyun seekhna chahte hain?</p>
+        <p className="text-slate-500 dark:text-slate-400 font-medium mb-8">Why do you want to learn?</p>
 
         <div className="space-y-3 mb-8">
           {goalsList.map((goal) => {
@@ -119,12 +119,12 @@ export default function Onboarding() {
 
         <div className="mb-10">
           <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">
-            Aur kuch specific likhna chahte ho? (Optional)
+            Anything else you'd like to share? (Optional)
           </label>
           <textarea
             value={extraInfo}
             onChange={(e) => setExtraInfo(e.target.value)}
-            placeholder="e.g., Mujhe boss ke saamne nervous feel hota hai..."
+            placeholder="e.g., I feel nervous in front of my boss..."
             className="w-full px-5 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none h-24"
           />
         </div>

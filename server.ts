@@ -30,7 +30,7 @@ app.post("/api/why", async (req, res) => {
     const { goals, extraInfo, language } = req.body;
     const prompt = `Act as an expert communication coach. The user wants to learn communication skills for: ${goals.join(", ")}. 
 Additional context: ${extraInfo || "None"}.
-Generate a powerful, personalized 1-2 sentence "Why Statement" in ${language}. 
+Generate a powerful, personalized 1-2 sentence "Why Statement" in ${language}. STRICTLY use ${language}. If the language is English, generate ONLY English. If Hindi, ONLY Hindi. DO NOT mix languages.
 Make it sound like a personal mission statement. Start directly with the statement without any quotes or explanations.`;
 
     const response = await ai.models.generateContent({
@@ -54,7 +54,7 @@ app.post("/api/lesson", async (req, res) => {
 Generate Lesson #${step} tailored to help them achieve this goal.
 We have already covered these topics: ${coveredTopics ? coveredTopics.join(", ") : "None"}.
 CRITICAL: Do NOT teach these topics again. Provide fresh, deep, high-quality, actionable insights, NOT generic advice.
-Output your response matching the requested JSON structure exactly. Ensure no markdown formatting or extra text. Use ${language} naturally.`;
+Output your response matching the requested JSON structure exactly. Ensure no markdown formatting or extra text. STRICTLY use ${language} in all content fields. DO NOT mix languages.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
@@ -66,23 +66,23 @@ Output your response matching the requested JSON structure exactly. Ensure no ma
           properties: {
             hook: { 
               type: Type.STRING, 
-              description: "A short, engaging 1-sentence thought-provoking hook in Hinglish about this lesson. Focus on interest or curiosity." 
+              description: `A short, engaging 1-sentence thought-provoking hook about this lesson in ${language}.` 
             },
             title: { 
               type: Type.STRING, 
-              description: "A short, catchy title for the lesson (English or Hinglish)." 
+              description: `A short, catchy title for the lesson in ${language}.` 
             },
             content: { 
               type: Type.STRING, 
-              description: "A 2-3 paragraph lesson content in Hinglish. Include an actionable psychological principle or micro-communication rule, and use an Indian context example so it feels relatable. Ensure the explanation is deep and insightful." 
+              description: `A 2-3 paragraph lesson content in ${language}. Include an actionable psychological principle or micro-communication rule, and use an Indian context example so it feels relatable. Ensure the explanation is deep and insightful.` 
             },
             reflectionPoint: { 
               type: Type.STRING, 
-              description: "A single thought-provoking question in Hinglish directed at the user to reflect on mid-lesson." 
+              description: `A single thought-provoking question in ${language} directed at the user to reflect on mid-lesson.` 
             },
             task: { 
               type: Type.STRING, 
-              description: "A single, highly specific, actionable micro-task they must complete TODAY in real life. Keep it extremely simple and easy, requiring less than 1 minute to act on." 
+              description: `A single, highly specific, actionable micro-task in ${language} they must complete TODAY in real life. Keep it extremely simple and easy, requiring less than 1 minute to act on.` 
             }
           },
           required: ["hook", "title", "content", "reflectionPoint", "task"]
@@ -103,7 +103,7 @@ app.post("/api/coach", async (req, res) => {
     const { task, reflection, language } = req.body;
     const prompt = `The user just completed a communication practice task: "${task}".
 Their reflection on how it went is: "${reflection}".
-Act as an encouraging AI communication coach. Reply with a short, 1-2 sentence encouraging feedback or a tiny tip in ${language}. Keep it highly motivational. Add an emoji.`;
+Act as an encouraging AI communication coach. Reply with a short, 1-2 sentence encouraging feedback or a tiny tip in ${language}. STRICTLY use ${language}. DO NOT mix languages. Keep it highly motivational. Add an emoji.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
