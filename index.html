@@ -2,11 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PersuX</title>
-    <link rel="icon" href="https://fav.farm/👑" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <title>PersuX - AI Communication Coach</title>
+    <meta name="description" content="Improve communication skills through daily AI-guided micro-tasks." />
+    <meta property="og:title" content="PersuX - AI Communication Coach" />
+    <meta property="og:description" content="Improve communication skills through daily AI-guided micro-tasks." />
+
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
+
+    <!-- Mobile Theme Color & Web App Mode -->
+    <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1C1917" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="PersuX" />
   </head>
-  <body>
+  <body class="bg-[#FAF8F5] dark:bg-[#1C1917] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

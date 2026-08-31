@@ -1,6 +1,6 @@
 {
   "name": "PersuX",
-  "description": "Improve communication skills through daily AI-guided micro-tasks.",
-  "requestFramePermissions": [],
+  "description": "Improve communication skills through daily AI-guided micro-tasks with offline PWA support.",
+  "requestFramePermissions": ["notifications"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

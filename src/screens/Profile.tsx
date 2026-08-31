@@ -5,6 +5,8 @@ import { signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 import { useStore } from '../store';
 import { User } from '../types';
+import PWAInstallPrompt from '../components/PWAInstallPrompt';
+import PWAPracticeReminder from '../components/PWAPracticeReminder';
 
 export default function Profile() {
   const user = useStore((state) => state.user);
@@ -209,6 +211,16 @@ export default function Profile() {
           {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
           {copied ? 'Link Copied!' : 'Copy Shareable Link'}
         </button>
+      </div>
+
+      {/* PWA App Install Banner */}
+      <div className="mb-6">
+        <PWAInstallPrompt />
+      </div>
+
+      {/* Notification Preferences */}
+      <div className="mb-6">
+        <PWAPracticeReminder />
       </div>
 
       {/* Badges Earned */}

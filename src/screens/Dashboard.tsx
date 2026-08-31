@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Flame, PlayCircle, Trophy, Users, ShieldAlert, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../store';
+import PWAInstallPrompt from '../components/PWAInstallPrompt';
+import PWAPracticeReminder from '../components/PWAPracticeReminder';
 
 export default function Dashboard() {
   const user = useStore((state) => state.user);
@@ -183,9 +185,19 @@ export default function Dashboard() {
         );
       })()}
 
+      {/* PWA App Install Banner */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38 }}>
+        <PWAInstallPrompt />
+      </motion.div>
+
+      {/* Daily Notification Card */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+        <PWAPracticeReminder />
+      </motion.div>
+
       {/* Mini Progress */}
       <motion.div 
-        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
         className="bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm"
       >
         <div className="flex justify-between items-end mb-3">
